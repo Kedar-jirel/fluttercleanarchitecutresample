@@ -4,6 +4,9 @@ import 'dart:ui';
 import 'package:get_it/get_it.dart';
 import 'package:rx_shared_preferences/rx_shared_preferences.dart';
 
+import '../../domain/repository/auth/auth_repo.dart';
+import '../../domain/repository/auth/i_auth_repo.dart';
+
 class AppConfig {
   static String TAG = "SETTINGS";
 
@@ -61,17 +64,17 @@ class AppConfig {
     return imageBaseUrl;
   }
 
-  // Future<void> fetchServerConfigSetting() async {
-  //   final rxPrefs = RxSharedPreferences(SharedPreferences.getInstance());
-  //   AuthRepo _authRepo = GetIt.I<IAuthRepo>() as AuthRepo;
-  //   try {
-  //     var config = await _authRepo.fetchServerConfig();
-  //     _appConfigMap = config;
-  //     rxPrefs.setString(TAG, jsonEncode(_appConfigMap));
-  //   } catch (e) {
-  //     print("${e}");
-  //   }
-  // }
+  Future<void> fetchServerConfigSetting() async {
+    final rxPrefs = RxSharedPreferences(SharedPreferences.getInstance());
+    AuthRepo _authRepo = GetIt.I<IAuthRepo>() as AuthRepo;
+    try {
+      var config = await _authRepo.fetchServerConfig();
+      _appConfigMap = config;
+      rxPrefs.setString(TAG, jsonEncode(_appConfigMap));
+    } catch (e) {
+      print("${e}");
+    }
+  }
 
   Future<Map<String, dynamic>?> getAppConfig() async {
     final rxPrefs = RxSharedPreferences(SharedPreferences.getInstance());
