@@ -1,4 +1,4 @@
-# cleaanarchitecturesample
+# cleanarchitecturesample
 
 A new Flutter project.
 
